@@ -1,4 +1,4 @@
-\<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -73,6 +73,24 @@
             display: none;
         }
 
+        /* Slide-in animations */
+        .slide-in-section {
+            opacity: 0;
+            transform: translateY(50px);
+            transition: all 0.6s ease-out;
+        }
+
+        .slide-in-section.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Delay animations for staggered effect */
+        .slide-in-section:nth-child(1) { transition-delay: 0.1s; }
+        .slide-in-section:nth-child(2) { transition-delay: 0.2s; }
+        .slide-in-section:nth-child(3) { transition-delay: 0.3s; }
+        .timeline-item { transition-delay: 0.4s; }
+
         html {
             scroll-behavior: smooth;
         }
@@ -145,7 +163,8 @@
             <h2 class="text-3xl md:text-4xl font-bold text-center mb-16 dancing-font">Bizim gözəl xatirələrimiz</h2>
 
             <div class="grid grid-cols-1 md:grid-cols-3 gap-8 mb-12">
-                <div class="message-box rounded-lg p-6">
+                <div class="message-box rounded-lg p-6 slide-in-section">
+                <div class="message-box rounded-lg p-6 slide-in-section">
                     <div class="flex items-center mb-4">
                         <div class="bg-pink-100 rounded-full p-2 mr-3">
                             <i class="fas fa-calendar-day text-pink-500"></i>
@@ -160,7 +179,7 @@
                     </div>
                 </div>
 
-                <div class="message-box rounded-lg p-6">
+                <div class="message-box rounded-lg p-6 slide-in-section">
                     <div class="flex items-center mb-4">
                         <div class="bg-pink-100 rounded-full p-2 mr-3">
                             <i class="fas fa-mountain text-purple-500"></i>
@@ -226,7 +245,7 @@
             <h2 class="text-3xl md:text-4xl font-bold text-center mb-12 dancing-font">sənə verdiyim sözlər</h2>
 
             <div class="max-w-4xl mx-auto">
-                <div class="bg-white rounded-xl shadow-lg p-6 mb-8 relative">
+                <div class="bg-white rounded-xl shadow-lg p-6 mb-8 relative slide-in-section">
                     <div class="absolute -top-4 -left-4 bg-pink-500 text-white rounded-full w-10 h-10 flex items-center justify-center">
                         <i class="fas fa-hand-holding-heart"></i>
                     </div>
@@ -236,7 +255,7 @@
                     </p>
                 </div>
 
-                <div class="bg-white rounded-xl shadow-lg p-6 mb-8 relative">
+                <div class="bg-white rounded-xl shadow-lg p-6 mb-8 relative slide-in-section">
                     <div class="absolute -top-4 -left-4 bg-purple-500 text-white rounded-full w-10 h-10 flex items-center justify-center">
                         <i class="fas fa-laugh-beam"></i>
                     </div>
@@ -359,6 +378,30 @@
 
         updateCountdown();
         setInterval(updateCountdown, 1000);
+
+        // Animation observer
+        const animateOnScroll = () => {
+            const elements = document.querySelectorAll('.slide-in-section');
+            
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('active');
+                        observer.unobserve(entry.target);
+                    }
+                });
+            }, {
+                threshold: 0.1,
+                rootMargin: '0px 0px -100px 0px'
+            });
+
+            elements.forEach(element => {
+                observer.observe(element);
+            });
+        };
+
+        // Run when page loads
+        document.addEventListener('DOMContentLoaded', animateOnScroll);
 
         // Enhanced smooth scrolling for anchor links
         document.querySelectorAll('a[href^="#"]').forEach(anchor => {
