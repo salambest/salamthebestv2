@@ -12,6 +12,7 @@
             font-family: 'Poppins', sans-serif;
             background-color: #fff5f5;
             color: #4a5568;
+            font-size: 16px;
         }
         
         .dancing-font {
@@ -38,21 +39,29 @@
         }
 
         @media (max-width: 768px) {
+            body {
+                font-size: 18px;
+            }
             .dancing-font {
-                font-size: 2rem;
+                font-size: 2.5rem;
             }
             .message-box {
-                padding: 1rem;
+                padding: 1.5rem;
+                font-size: 1rem;
             }
             .timeline-item {
-                padding-left: 20px;
+                padding-left: 25px;
+                font-size: 1rem;
             }
             .timeline-item::before {
-                width: 12px;
-                height: 12px;
+                width: 14px;
+                height: 14px;
             }
             .timeline-item::after {
-                left: 5px;
+                left: 7px;
+            }
+            h1, h2, h3, h4 {
+                font-size: 1.5rem;
             }
         }
         
@@ -116,9 +125,9 @@
                 </div>
             </div>
             <div id="mobile-menu" class="hidden md:hidden pb-4 px-4">
-                <a href="#ev" class="block py-3 text-gray-600 hover:text-pink-500 transition duration-300 border-b border-gray-200">Home</a>
-                <a href="#xatirələr" class="block py-3 text-gray-600 hover:text-pink-500 transition duration-300 border-b border-gray-200">xatirələr</a>
-                <a href="#sözlərim" class="block py-3 text-gray-600 hover:text-pink-500 transition duration-300">sözlərim</a>
+                <a href="#ev" class="block py-3 text-lg text-gray-600 hover:text-pink-500 transition duration-300 border-b border-gray-200">Home</a>
+                <a href="#xatirələr" class="block py-3 text-lg text-gray-600 hover:text-pink-500 transition duration-300 border-b border-gray-200">xatirələr</a>
+                <a href="#sözlərim" class="block py-3 text-lg text-gray-600 hover:text-pink-500 transition duration-300">sözlərim</a>
             </div>
         </div>
     </nav>
@@ -132,7 +141,7 @@
                     </div>
                 </div>
                 <div class="md:w-1/2 text-center md:text-left">
-                    <h1 class="text-4xl md:text-5xl font-bold text-gray-800 mb-4 dancing-font">mənim anime qızım</h1>
+                    <h1 class="text-3xl md:text-5xl font-bold text-gray-800 mb-4 dancing-font">mənim anime qızım</h1>
                     <p class="text-xl text-gray-600 mb-6">
                        
                     </p>
