@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+\<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -71,6 +71,16 @@
 
         .timeline-item:last-child::after {
             display: none;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+        
+        @media screen and (prefers-reduced-motion: reduce) {
+            html {
+                scroll-behavior: auto;
+            }
         }
     </style>
 </head>
@@ -350,22 +360,31 @@
         updateCountdown();
         setInterval(updateCountdown, 1000);
 
-        // Smooth scrolling for anchor links
+        // Enhanced smooth scrolling for anchor links
         document.querySelectorAll('a[href^="#"]').forEach(anchor => {
             anchor.addEventListener('click', function(e) {
                 e.preventDefault();
-                document.querySelector(this.getAttribute('href')).scrollIntoView({
-                    behavior: 'smooth'
-                });
-
-                // Close mobile menu if open
-                document.getElementById('mobile-menu').classList.add('hidden');
+                const targetId = this.getAttribute('href');
+                const targetElement = document.querySelector(targetId);
                 
-                // Mobile offset adjustment
-                if (window.innerWidth < 768) {
-                    const target = document.querySelector(this.getAttribute('href'));
-                    const y = target.getBoundingClientRect().top + window.pageYOffset - 70;
-                    window.scrollTo({top: y, behavior: 'smooth'});
+                if (targetElement) {
+                    // Close mobile menu if open
+                    document.getElementById('mobile-menu').classList.add('hidden');
+                    
+                    // Calculate offset based on screen size
+                    const offset = window.innerWidth < 768 ? 70 : 20;
+                    const targetPosition = targetElement.getBoundingClientRect().top + window.pageYOffset - offset;
+                    
+                    window.scrollTo({
+                        top: targetPosition,
+                        behavior: 'smooth'
+                    });
+                    
+                    // Add focus to the target section for accessibility
+                    setTimeout(() => {
+                        targetElement.setAttribute('tabindex', '-1');
+                        targetElement.focus();
+                    }, 1000);
                 }
             });
         });
