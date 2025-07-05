@@ -360,6 +360,13 @@
 
                 // Close mobile menu if open
                 document.getElementById('mobile-menu').classList.add('hidden');
+                
+                // Mobile offset adjustment
+                if (window.innerWidth < 768) {
+                    const target = document.querySelector(this.getAttribute('href'));
+                    const y = target.getBoundingClientRect().top + window.pageYOffset - 70;
+                    window.scrollTo({top: y, behavior: 'smooth'});
+                }
             });
         });
     </script>
