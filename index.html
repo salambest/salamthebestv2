@@ -1,138 +1,377 @@
 <!DOCTYPE html>
-<html lang="az">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&family=Noto+Sans+Adlam:wght@400;500;600;700&display=swap" rel="stylesheet">
     <title>Anime qızıma</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&family=Noto+Sans+Adlam:wght@400;500;600;700&display=swap" rel="stylesheet">
     <style>
         body {
-            font-family: 'Noto Sans Adlam', 'Poppins', sans-serif;
+            font-family: 'Noto Sans Adlam', 'Poppins', 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif, -apple-system, BlinkMacSystemFont;
             background-color: #fff5f5;
             color: #4a5568;
+            text-rendering: optimizeLegibility;
+            -webkit-font-smoothing: antialiased;
         }
-        body::before {
-            content: "";
-            position: fixed;
-            top: 0; left: 0;
-            width: 100%; height: 100%;
-            background: radial-gradient(circle at 20% 20%, rgba(255,192,203,0.2), transparent 50%),
-                        radial-gradient(circle at 80% 80%, rgba(186, 85, 211, 0.2), transparent 50%);
-            background-size: 400% 400%;
-            animation: bgMove 20s infinite alternate;
-            z-index: -1;
+
+        .dancing-font {
+            font-family: 'Dancing Script', 'Noto Sans Adlam', cursive, sans-serif;
         }
-        @keyframes bgMove {
-            0% { background-position: 0% 0%; }
-            100% { background-position: 100% 100%; }
+
+        html {
+            scroll-behavior: smooth;
         }
-        html { scroll-behavior: smooth; }
+
+        @media screen and (prefers-reduced-motion: reduce) {
+            html {
+                scroll-behavior: auto;
+            }
+        }
     </style>
+    
+    <style>
+    body::before {
+        content: "";
+        position: fixed;
+        top: 0; left: 0;
+        width: 100%; height: 100%;
+        background: radial-gradient(circle at 30% 30%, rgba(255, 192, 203, 0.2), transparent 40%),
+                    radial-gradient(circle at 70% 70%, rgba(186, 85, 211, 0.2), transparent 40%);
+        background-size: 200% 200%;
+        animation: bgMove 15s ease-in-out infinite alternate;
+        z-index: -1;
+        pointer-events: none;
+    }
+
+    @keyframes bgMove {
+        0% { background-position: 0% 0%; }
+        100% { background-position: 100% 100%; }
+    }
+</style>
+
 </head>
 <body>
-    <nav class="bg-white shadow-lg">
-        <div class="max-w-6xl mx-auto px-4 flex justify-between items-center py-4">
-            <div class="flex items-center space-x-2">
-                <i class="fas fa-heart text-pink-500 text-2xl"></i>
-                <span class="text-xl font-semibold">Mənim anime qızıma</span>
-            </div>
-            <div class="hidden md:flex space-x-6">
-                <a href="#home" class="hover:text-pink-500">Ev</a>
-                <a href="#memories" class="hover:text-pink-500">Xatirələr</a>
-                <a href="#promises" class="hover:text-pink-500">Sözlər</a>
-            </div>
-            <div class="md:hidden">
-                <button id="menu-btn"><i class="fas fa-bars text-xl"></i></button>
-            </div>
+    <!-- Splash Screen -->
+    <div id="splash" class="fixed inset-0 z-50 flex items-center justify-center bg-white transition-opacity duration-1000">
+        <div class="text-center animate-bounce">
+            <i class="fas fa-heart text-pink-500 text-6xl mb-4"></i>
+            <h2 class="text-2xl font-bold dancing-font">Ümidin anime qızı</h2>
         </div>
-        <div id="mobile-menu" class="hidden md:hidden flex flex-col space-y-2 px-4 pb-4 backdrop-blur-sm bg-white/70 rounded-lg">
-            <a href="#home" class="hover:text-pink-500">Ev</a>
-            <a href="#memories" class="hover:text-pink-500">Xatirələr</a>
-            <a href="#promises" class="hover:text-pink-500">Sözlər</a>
+    </div>
+
+    <!-- Navbar -->
+      <nav class="bg-white shadow-lg">
+        <div class="max-w-6xl mx-auto px-4">
+            <div class="flex justify-between items-center py-4">
+                <div class="flex items-center space-x-1">
+                    <i class="fas fa-heart text-pink-500 text-2xl"></i>
+                    <span class="text-xl font-semibold text-gray-800 dancing-font">Mənim anime qızıma</span>
+                </div>
+                <div class="hidden md:flex items-center space-x-8">
+                    <a href="#home" class="text-gray-600 hover:text-pink-500 transition duration-300">ev</a>
+                    <a href="#memories" class="text-gray-600 hover:text-pink-500 transition duration-300">Xatirələr</a>
+                    <a href="#promises" class="text-gray-600 hover:text-pink-500 transition duration-300">Sözlərim</a>
+                </div>
+                <div class="md:hidden">
+                    <button id="menu-btn" class="text-gray-600 focus:outline-none" aria-label="Menu" aria-expanded="false">
+                        <i class="fas fa-bars text-xl"></i>
+                    </button>
+                </div>
+            </div>
+            <div id="mobile-menu" class="hidden md:hidden pb-4 transition-all duration-300 ease-in-out">
+                <a href="#home" class="block py-2 text-gray-600 hover:text-pink-500 transition duration-300">ev</a>
+                <a href="#memories" class="block py-2 text-gray-600 hover:text-pink-500 transition duration-300">xatirələr</a>
+                <a href="#promises" class="block py-2 text-gray-600 hover:text-pink-500 transition duration-300">sözlərim</a>
+            </div>
         </div>
     </nav>
 
-    <section id="home" class="py-20 text-center">
-        <h1 class="text-4xl font-bold mb-4">Mənim anime qızım</h1>
-        <img src="https://i.pinimg.com/736x/42/4f/b1/424fb1690430778501a8f93d4eefd403.jpg" alt="Anime Girl" class="w-48 h-48 rounded-full mx-auto shadow-lg">
-        <button id="love-btn" class="relative bg-gradient-to-r from-pink-500 to-purple-500 text-white px-6 py-3 mt-6 rounded-full shadow-lg">Ürəkə bas ❤️<span class="absolute inset-0 rounded-full bg-pink-400 opacity-20 blur-lg animate-pulse"></span></button>
-    </section>
+    <section id="home" class="relative overflow-hidden">
+        <div class="absolute inset-0 bg-gradient-to-r from-pink-100 via-purple-100 to-blue-100 opacity-25"></div>
+        <div class="container mx-auto px-6 py-20 relative z-10">
+            <div class="flex flex-col md:flex-row items-center">
+                <div class="md:w-1/2 mb-10 md:mb-0">
+                    <div class="photo-frame rounded-lg overflow-hidden w-64 h-64 mx-auto md:mx-0">
+                        <img src="https://i.pinimg.com/736x/42/4f/b1/424fb1690430778501a8f93d4eefd403.jpg" alt="Anime girl" class="w-full h-full object-cover">
+                    </div>
+                </div>
+                <div class="md:w-1/2 text-center md:text-left">
+                    <h1 class="text-4xl md:text-5xl font-bold text-gray-800 mb-4 dancing-font">mənim anime qızım</h1>
+                    <p class="text-xl text-gray-600 mb-6">
 
-    <section id="memories" class="py-16">
-        <h2 class="text-3xl font-bold text-center mb-10">Gözəl Xatirələr</h2>
-        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 max-w-6xl mx-auto px-4">
-            <div class="bg-white p-4 rounded shadow">
-                <h3 class="font-semibold mb-2">İlk dəfə göz qırpmama</h3>
-                <p>Məktəbdə o oyunumuzu xatırlayırsan? Gözlərinə baxmaq xoş idi. Səni çox sevirəm.</p>
-            </div>
-            <div class="bg-white p-4 rounded shadow">
-                <h3 class="font-semibold mb-2">Domino və Uno</h3>
-                <p>Domino oynamaq və UNO zamanı gülməli anlar. Səni çox sevirəm.</p>
-            </div>
-            <div class="bg-white p-4 rounded shadow">
-                <h3 class="font-semibold mb-2">Park Xatirəsi</h3>
-                <p>Yıxılmaların, gülüşlərin... Həmişə ürəyimdəsən.</p>
+                    </p>
+                    <div class="flex justify-center md:justify-start items-center">
+                        <button id="love-btn" class="bg-gradient-to-r from-pink-500 to-purple-500 text-white px-6 py-3 rounded-full shadow-lg transform transition hover:scale-105 duration-300 mr-4">
+                            Ürəkə bas ❤️
+                        </button>
+                        <div id="heart-container" class="hidden">
+                            <i class="fas fa-heart text-pink-500 text-4xl heart-animation"></i>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </section>
 
+    <!-- Memories Section -->
+    <section id="memories" class="py-16 bg-white">
+        <div class="container mx-auto px-6">
+            <h2 class="text-3xl md:text-4xl font-bold text-center mb-16 dancing-font">Bizim gözəl xatirələrimiz</h2>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8 mb-12">
+                <div class="message-box rounded-lg p-6">
+                    <div class="flex items-center mb-4">
+                        <div class="bg-pink-100 rounded-full p-2 mr-3">
+                            <i class="fas fa-calendar-day text-pink-500"></i>
+                        </div>
+                        <h3 class="text-xl font-semibold">İlk dəfə göz qırpmama oynamaqımız</h3>
+                    </div>
+                    <p class="text-gray-600">
+                       yadındadı məktəbdə göz qırpmama oynamaqımız?sənin gözlərinə baxanda çox sevinmişdim.səni çox sevirəm.
+                    </p>
+                    <div class="mt-4 text-sm text-pink-500">
+                        <i class="far fa-clock mr-1"></i> 2024-2025
+                    </div>
+                </div>
+
+                <div class="message-box rounded-lg p-6">
+                    <div class="flex items-center mb-4">
+                        <div class="bg-pink-100 rounded-full p-2 mr-3">
+                            <i class="fas fa-mountain text-purple-500"></i>
+                        </div>
+                        <h3 class="text-xl font-semibold">domino və uno</h3>
+                    </div>
+                    <p class="text-gray-600">
+                        sizinlə domino oynuyanda keçirdiyim vaxt həqiqətən çox qəşəng idi.uno oynuyanda polisə tutulmaqımız. axır vaxtlarda az qala şəhla müəllimə tutulurduq.səni çox sevirəm.
+                    </p>
+                    <div class="mt-4 text-sm text-pink-500">
+                        <i class="far fa-clock mr-1"></i> 2024-2025
+                    </div>
+                </div>
+
+                <div class="message-box rounded-lg p-6">
+                    <div class="flex items-center mb-4">
+                        <div class="bg-pink-100 rounded-full p-2 mr-3">
+                            <i class="fas fa-home text-blue-500"></i>
+                        </div>
+                        <h3 class="text-xl font-semibold">park</h3>
+                    </div>
+                    <p class="text-gray-600">
+                       bu mənim ən çox xoşladığım xatirədir.orda sənin yıxılmaqların sənin gülüşün sənin sevincin.sən orda heçnədən qorxmamışdın. sən çox cəsursan bir o qədərdə şirinsən.səni çox sevirəm.
+                    </p>
+                    <div class="mt-4 text-sm text-pink-500">
+                        <i class="far fa-clock mr-1"></i> 2025
+                    </div>
+                </div>
+            </div>
+
+            <div class="bg-gray-50 rounded-lg p-8">
+                <h3 class="text-2xl font-semibold mb-6 text-center dancing-font">Bizim Vaxtımız</h3>
+                <div class="max-w-2xl mx-auto">
+                    <div class="timeline-item">
+                        <h4 class="font-semibold">səni ilk sevdiyimdə</h4>
+                        <div class="text-sm mb-2 text-gray-500">2024</div>
+                        <p class="text-gray-600">səni ilk dəfə sevəndə özümə inanmamışdım çünki sənin məni sevəcəyinə inanmamışdım.</p>
+                    </div>
+                    <div class="timeline-item">
+                        <h4 class="font-semibold">sənə ilk dəfə səni sevirəm deyəndə</h4>
+                        <div class="text-sm mb-2 text-gray-500">2025</div>
+                        <p class="text-gray-600">sənə səni sevdiyimi demək üçün 3 gecə yata bilmədim.səni sevdiyimi dediyimdə sanki sevinmişdim və bu sevincim boşa deyildi</p>
+                    </div>
+                    <div class="timeline-item">
+                        <h4 class="font-semibold">səni sevirəm deyəndə</h4>
+                        <div class="text-sm mb-2 text-gray-500">2025</div>
+                        <p class="text-gray-600">bəli bu sevincim boşa deyildi çünki səndə məni sevdiyini demişdin.sənə hər gün səni sevirəm desəmdə bu sevgini sözlərlə ifadə edə bilmərəm.</p>
+                    </div>
+                    <div class="timeline-item">
+                        <h4 class="font-semibold">bu gün</h4>
+                        <div class="text-sm mb-2 text-gray-500">Hər gün</div>
+                        <p class="text-gray-600">mən həldə səni sevirəm.səni canımdan daha çox sevirəm.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+    <!-- Promises Section -->
     <section id="promises" class="py-16 bg-gradient-to-br from-purple-50 to-pink-50">
-        <h2 class="text-3xl font-bold text-center mb-10">Sənə Verdiyim Sözlər</h2>
-        <div class="max-w-4xl mx-auto px-4 space-y-6">
-            <div class="bg-white p-6 rounded shadow relative">
-                <div class="absolute -top-4 -left-4 bg-pink-500 text-white rounded-full w-10 h-10 flex items-center justify-center">
-                    <i class="fas fa-heart"></i>
+        <div class="container mx-auto px-6">
+            <h2 class="text-3xl md:text-4xl font-bold text-center mb-12 dancing-font">sənə verdiyim sözlər</h2>
+
+            <div class="max-w-4xl mx-auto">
+                <div class="bg-white rounded-xl shadow-lg p-6 mb-8 relative">
+                    <div class="absolute -top-4 -left-4 bg-pink-500 text-white rounded-full w-10 h-10 flex items-center justify-center">
+                        <i class="fas fa-hand-holding-heart"></i>
+                    </div>
+                    <h3 class="text-xl font-semibold mb-4 pl-8">üzgün olmaq</h3>
+                    <p class="text-gray-600 pl-8">
+                    </p>
                 </div>
-                <h3 class="font-semibold">Həmişə yanındayam</h3>
-                <p>Səni heç vaxt tək buraxmayacam, söz verirəm.</p>
+
+                <div class="bg-white rounded-xl shadow-lg p-6 mb-8 relative">
+                    <div class="absolute -top-4 -left-4 bg-purple-500 text-white rounded-full w-10 h-10 flex items-center justify-center">
+                        <i class="fas fa-laugh-beam"></i>
+                    </div>
+                    <h3 class="text-xl font-semibold mb-4 pl-8">özümü qorumaq</h3>
+                    <p class="text-gray-600 pl-8">
+                        sənə söz vermişəm həmişə özümü qorumağa çalışacam.idmanda,yolda harda olsaq.hər yerdə özümü qoruyacaqam
+                    </p>
+                </div>
+
+
+
+    <!-- Footer -->
+    <footer class="bg-gray-800 text-white py-8">
+        <div class="container mx-auto px-6">
+            <div class="flex flex-col md:flex-row justify-between items-center">
+                <div class="mb-4 md:mb-0">
+                    <div class="flex items-center">
+                        <i class="fas fa-heart text-pink-400 text-xl mr-2"></i>
+                        <span class="text-xl dancing-font">Ömür boyu sənin</span>
+                    </div>
+                    <div class="mt-2 text-sm text-gray-400">
+                       Ümid tərəfindən sevgi ilə edildi
+                    </div>
+                </div>
+                <div class="flex space-x-6">
+                    <a href="#" class="text-gray-400 hover:text-pink-400 transition duration-300">
+                        <i class="fab fa-instagram text-xl"></i>
+                    </a>
+                    <a href="#" class="text-gray-400 hover:text-blue-400 transition duration-300">
+                        <i class="fab fa-twitter text-xl"></i>
+                    </a>
+                    <a href="#" class="text-gray-400 hover:text-red-400 transition duration-300">
+                        <i class="fab fa-pinterest text-xl"></i>
+                    </a>
+                </div>
             </div>
-            <div class="bg-white p-6 rounded shadow relative">
-                <div class="absolute -top-4 -left-4 bg-purple-500 text-white rounded-full w-10 h-10 flex items-center justify-center">
-                    <i class="fas fa-shield-heart"></i>
-                </div>
-                <h3 class="font-semibold">Özümü qoruyacağam</h3>
-                <p>Hər zaman səni və özümü qorumağa çalışacam.</p>
+            <div class="mt-8 pt-8 border-t border-gray-700 text-center text-sm text-gray-400">
+                ©Ümiddən anime qızıma. burda yazılan hər şey ürəkdəndir.
             </div>
         </div>
-    </section>
-
-    <footer class="bg-gray-800 text-white py-6 text-center">
-        <p>© Ümiddən anime qızıma - Bütün sevgi ilə yazılıb.</p>
     </footer>
 
     <script>
-        const menuBtn = document.getElementById('menu-btn');
-        const mobileMenu = document.getElementById('mobile-menu');
-        menuBtn.addEventListener('click', () => {
-            mobileMenu.classList.toggle('hidden');
+        // Hide splash screen after load
+        window.addEventListener('load', function() {
+            setTimeout(function() {
+                const splash = document.getElementById('splash');
+                splash.style.opacity = '0';
+                setTimeout(() => splash.remove(), 1000);
+            }, 2000);
         });
 
-        document.getElementById('love-btn').addEventListener('click', () => {
-            for (let i = 0; i < 10; i++) createFloatingHeart();
+        // Mobile menu toggle
+        const menuBtn = document.getElementById('menu-btn');
+        const mobileMenu = document.getElementById('mobile-menu');
+        
+        menuBtn.addEventListener('click', function() {
+            const isExpanded = this.getAttribute('aria-expanded') === 'true';
+            this.setAttribute('aria-expanded', !isExpanded);
+            mobileMenu.classList.toggle('hidden');
+            mobileMenu.classList.toggle('block');
+        });
+
+        // Close menu when clicking outside
+        document.addEventListener('click', function(e) {
+            if (!menuBtn.contains(e.target) && !mobileMenu.contains(e.target)) {
+                menuBtn.setAttribute('aria-expanded', 'false');
+                mobileMenu.classList.add('hidden');
+                mobileMenu.classList.remove('block');
+            }
+        });
+
+        // Love button animation
+        document.getElementById('love-btn').addEventListener('click', function() {
+            const heart = document.getElementById('heart-container');
+            heart.classList.remove('hidden');
+
+            // Create floating hearts
+            for (let i = 0; i < 10; i++) {
+                createFloatingHeart();
+            }
+
+            setTimeout(() => {
+                heart.classList.add('hidden');
+            }, 3000);
         });
 
         function createFloatingHeart() {
             const heart = document.createElement('div');
-            heart.innerHTML = '❤️';
-            heart.style.position = 'fixed';
+            heart.innerHTML = '<i class="fas fa-heart text-pink-500"></i>';
+            heart.className = 'text-xl absolute';
             heart.style.left = Math.random() * window.innerWidth + 'px';
-            heart.style.top = '100%';
-            heart.style.fontSize = (Math.random() * 20 + 20) + 'px';
-            heart.style.opacity = '0.7';
+            heart.style.top = window.innerHeight + 'px';
+            heart.style.opacity = '0.6';
+            heart.style.transform = 'rotate(' + Math.random() * 60 + 'deg)';
             document.body.appendChild(heart);
+
             let posY = window.innerHeight;
-            const speed = Math.random() * 2 + 1;
-            const move = setInterval(() => {
-                posY -= speed;
+            const moveHeart = setInterval(() => {
+                posY -= 2;
                 heart.style.top = posY + 'px';
+
                 if (posY < -50) {
-                    clearInterval(move);
+                    clearInterval(moveHeart);
                     heart.remove();
                 }
-            }, 30);
+            }, 20);
         }
+
+        // Countdown timer
+        function updateCountdown() {
+            // Change this to your anniversary date (Year, Month-1, Day)
+            const anniversary = new Date(2021, 4, 15); // May 15, 2021 (Month is 0-indexed)
+            document.getElementById('anniversary-date').textContent = anniversary.toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' });
+
+            const now = new Date();
+            const diff = now - anniversary;
+
+            const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+            const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+            const seconds = Math.floor((diff % (1000 * 60)) / 1000);
+
+            document.getElementById('days').textContent = days.toString().padStart(2, '0');
+            document.getElementById('hours').textContent = hours.toString().padStart(2, '0');
+            document.getElementById('minutes').textContent = minutes.toString().padStart(2, '0');
+            document.getElementById('seconds').textContent = seconds.toString().padStart(2, '0');
+        }
+
+        updateCountdown();
+        setInterval(updateCountdown, 1000);
+
+        // Enhanced smooth scrolling for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                const targetId = this.getAttribute('href');
+                const targetElement = document.querySelector(targetId);
+                
+                if (targetElement) {
+                    // Close mobile menu if open
+                    document.getElementById('mobile-menu').classList.add('hidden');
+                    
+                    // Calculate offset based on screen size
+                    const offset = window.innerWidth < 768 ? 70 : 20;
+                    const targetPosition = targetElement.getBoundingClientRect().top + window.pageYOffset - offset;
+                    
+                    window.scrollTo({
+                        top: targetPosition,
+                        behavior: 'smooth'
+                    });
+                    
+                    // Add focus to the target section for accessibility
+                    setTimeout(() => {
+                        targetElement.setAttribute('tabindex', '-1');
+                        targetElement.focus();
+                    }, 1000);
+                }
+            });
+        });
     </script>
 </body>
 </html>
